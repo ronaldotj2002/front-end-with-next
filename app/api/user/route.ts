@@ -17,20 +17,20 @@ export async function POST(request: Request, context: any) {
     // return NextResponse.json({
     //     data
     // })
-    const { params } = context;
+    // const { params } = context;
 
-    console.log("POST", params)
-    try {
+    // console.log("POST", params)
+    // try {
         
-            const newuser = await request.json();
-                const dados = NextResponse.json({
-                    newuser
-                })
-                console.log("DADOSSSSSSSSS", newuser)
+    //         const newuser = await request.json();
+    //             const dados = NextResponse.json({
+    //                 newuser
+    //             })
+    //             console.log("DADOSSSSSSSSS", newuser)
                
-            } catch (err) {
-                // res.status(400).json(err.message)
-            }
+    //         } catch (err) {
+                
+    //         }
 }
 
 // export default function handler(req, res) {
