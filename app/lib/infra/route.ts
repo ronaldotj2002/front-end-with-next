@@ -42,7 +42,7 @@ export async function cadastrar(prevState: any, formData: FormData) {
             `;
 
         const resposta =  NextResponse.json({ res }, { status: 200 })
-         console.log("USUÁRIO CADASTRADO COM SUCESSO!", resposta.status);
+         console.log("USUÁRIO CADASTRADO COM SUCESSO!", resposta.status);        
     } 
     catch (err) {
          NextResponse.json({ err }, { status: 500 })
