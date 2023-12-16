@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import { z } from 'zod'
 import NextAuth from 'next-auth'
-import { getUsuarioPorEmail } from '../lib/infra/usuarios';
+import { getUsuarioPorEmail } from './usuarios';
 
 
 
