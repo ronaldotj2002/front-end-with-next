@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useFormState, useFormStatus } from 'react-dom';
 import { createUser } from '../../action';
+import { cadastrar } from '@/app/api/route';
 
 const initialState = {
     message: null,
@@ -20,7 +21,7 @@ function SubmitButton() {
 
 export default function Cadastro() {
 
-    const [state, formAction] = useFormState(createUser, initialState)
+    const [state, formAction] = useFormState(cadastrar, initialState)
     // const [errorMessage, formAction] = useFormState(cadastro, undefined);
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">

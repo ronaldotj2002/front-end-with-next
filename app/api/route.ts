@@ -1,45 +1,66 @@
+'use server'
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
+import { z } from 'zod'
+import { getUsuarioPorEmail } from '../lib/infra/usuarios';
 
-export async function POST() {
-    const res = await fetch('/api', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'API-Key': process.env.DATA_API_KEY!,
-      },
-      body: JSON.stringify({ time: new Date().toISOString() }),
-    })
+
+export async function cadastrar(prevState: any, formData: FormData) {
+
+  let hashSenha = await bcrypt.hash(`${formData.get('senha')}`, 10);
+
+  const schema = z.object({
+    email: z.string().min(7),
+    nome: z.string().min(6),
+    senha: z.string().min(5),
+  })
+  
+  const parse = schema.parse({
+    email: formData.get('email'),
+    nome: formData.get('nome'),
+    senha: formData.get('senha'),
+})
+  // const body = {
+  //   email: formData.get('email'),
+  //   nome: formData.get('nome'),
+  //   senha: hashSenha,
+  // }  
+  // data={JSON.parse(JSON.stringify(unit))}
+  console.log("--- REQUEST ---", parse);
+  const usuario = await getUsuarioPorEmail(parse.email);
+    if(usuario) {
+      console.log(`O email informado: ${parse.email} já possui um cadastro.`);
+      return
+    }
+
+    try {
+    
+        let res = await sql `
+            INSERT INTO usuarios (email, nome, senha)
+            VALUES (${parse.email}, ${parse.nome}, ${hashSenha} )
+            ON CONFLICT (id) DO NOTHING;
+            `;
+
+        const resposta =  NextResponse.json({ res }, { status: 200 })
+         console.log("USUÁRIO CADASTRADO COM SUCESSO!", resposta.status);
+    } 
+    catch (err) {
+         NextResponse.json({ err }, { status: 500 })
+    }
+
+  //   try {
+    
+  //     let res = await sql `
+  //         INSERT INTO usuarios (email, nome, senha)
+  //         VALUES ('teste@gmail.com', 'teste', ${hashSenha} )
+  //         ON CONFLICT (id) DO NOTHING;
+  //         `;
+
+  //     return NextResponse.json({ res }, { status: 200 })
+  // } 
+  // catch (err) {
+  //     return NextResponse.json({ err }, { status: 500 })
+  // }
    
-    const data = await res.json()
-   
-    return Response.json(data)
-  }
-
-// export async function heandler({nome, email, senha}) {
-
-//     console.log("--- REQUEST ---", nome, email, senha);
-//     try {
-//         let hashSenha = await bcrypt.hash('teste', 10);
-
-        // let res = await sql `
-        //     INSERT INTO usuarios (nome, email, senha)
-        //     VALUES ('Carlos', 'carlos@gmail.com', ${hashSenha})
-        //     ON CONFLICT (id) DO NOTHING;
-        //     `;
-
-        // return NextResponse.json({ res }, { status: 200 })
-    // } 
-    // catch (err) {
-    //     return NextResponse.json({ err }, { status: 500 })
-    // }
-    // return NextResponse.json({
-    //     teste: [
-    //         {
-    //             id: 1,
-    //             nome: 'Cubos Mágicos'
-    //         }
-    //     ],
-    // })
-// }
+}
