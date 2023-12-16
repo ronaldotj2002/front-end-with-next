@@ -3,11 +3,14 @@ import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import { z } from 'zod'
+import NextAuth from 'next-auth'
 import { getUsuarioPorEmail } from '../lib/infra/usuarios';
 
 
-export async function cadastrar(prevState: any, formData: FormData) {
 
+export async function cadastrar(prevState: any, formData: FormData) {
+  
+  console.log("--- REQUEST ---");
   let hashSenha = await bcrypt.hash(`${formData.get('senha')}`, 10);
 
   const schema = z.object({
@@ -21,12 +24,7 @@ export async function cadastrar(prevState: any, formData: FormData) {
     nome: formData.get('nome'),
     senha: formData.get('senha'),
 })
-  // const body = {
-  //   email: formData.get('email'),
-  //   nome: formData.get('nome'),
-  //   senha: hashSenha,
-  // }  
-  // data={JSON.parse(JSON.stringify(unit))}
+ 
   console.log("--- REQUEST ---", parse);
   const usuario = await getUsuarioPorEmail(parse.email);
     if(usuario) {
