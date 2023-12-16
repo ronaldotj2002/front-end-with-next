@@ -22,7 +22,7 @@ function SubmitButton() {
 export default function Cadastro() {
 
   const [state, formAction] = useFormState(cadastrar, initialState)
-  // const [errorMessage, formAction] = useFormState(cadastro, undefined);
+
   return (
     <main className="flex px-6 drop-shadow-2xl lg:w-3/4">
 
