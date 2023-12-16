@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useFormState, useFormStatus } from 'react-dom';
 import { createUser } from '../../action';
-import { cadastrar } from '../infra/route';
+import { cadastrar } from '../infra/cadastro';
 
 
 const initialState = {
