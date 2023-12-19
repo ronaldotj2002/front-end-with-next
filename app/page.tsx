@@ -1,5 +1,7 @@
+
 import Link from 'next/link';
 import React from 'react';
+import Email from './lib/ui/email';
 
 export default function Home() {
 
@@ -9,6 +11,7 @@ export default function Home() {
         <h1>Projeto de Bloco</h1>
         <Link href="/protegido">Área Protegida</Link>
       </div>
+      <Email />
 
     </main>
     
