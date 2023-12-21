@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { useFormState, useFormStatus } from 'react-dom';
-import { createUser } from '../../action';
 import { cadastrar } from '../infra/cadastro';
+
 
 
 const initialState = {
@@ -77,4 +77,6 @@ export default function Cadastro() {
 
     </main>
   )
+
+  
 }

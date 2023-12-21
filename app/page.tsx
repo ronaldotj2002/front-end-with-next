@@ -11,8 +11,7 @@ export default function Home() {
         <h1>Projeto de Bloco</h1>
         <Link href="/protegido">Área Protegida</Link>
       </div>
-      <Email />
-
+   
     </main>
     
   )
