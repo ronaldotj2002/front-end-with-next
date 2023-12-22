@@ -6,9 +6,9 @@ import { cadastrar } from '../infra/cadastro';
 
 
 
-const initialState = {
-  message: null,
-}
+// const initialState = {
+//   message: null,
+// }
 
 function SubmitButton() {
   const { pending } = useFormStatus()
@@ -22,7 +22,7 @@ function SubmitButton() {
 
 export default function Cadastro() {
 
-  const [state, formAction] = useFormState(cadastrar, initialState)
+  const [errorMessage, formAction] = useFormState(cadastrar, undefined)
 
   return (
     <main className="flex px-6 drop-shadow-2xl lg:w-3/4 bg-white">
@@ -38,7 +38,7 @@ export default function Cadastro() {
           <h1 className="text-4xl mb-2">Cadastro</h1>
           <p className="text-xl text-gray-700 mb-2">Realize o seu cadastro!</p>
         </div>
-        <form className="space-y-6" action={formAction}>
+        <form className="space-y-6" action={formAction} method='POST'>
           <div>
             <label className="block text-sm font-medium leading-6 text-gray-900">E-mail</label>
             <div className="mt-2">
@@ -67,6 +67,14 @@ export default function Cadastro() {
             <SubmitButton />
        
           </div>
+          <div className="flex h-5 items-end space-x-1">
+                        {errorMessage && (
+                        <>
+                            <p className="text-sm">{errorMessage}</p>
+                        </>
+                        )}
+
+                    </div>
         </form>
         <p className="mt-10 text-center text-sm text-gray-500">
           Já possui conta?

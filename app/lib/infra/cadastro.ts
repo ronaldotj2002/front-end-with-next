@@ -26,11 +26,11 @@ export async function cadastrar(prevState: any, formData: FormData) {
     senha: formData.get('senha'),
 })
  
-  console.log("--- REQUEST ---", parse);
+  console.log("--- REQUEST ---", parse.email);
   const usuario = await getUsuarioPorEmail(parse.email);
     if(usuario) {
       console.log(`O email informado: ${parse.email} já possui um cadastro.`);
-      return
+      return `O email informado: ${parse.email} já possui um cadastro.`
     }
 
     try {
@@ -40,6 +40,11 @@ export async function cadastrar(prevState: any, formData: FormData) {
             VALUES (${parse.email}, ${parse.nome}, ${hashSenha} )
             ON CONFLICT (id) DO NOTHING;
             `;
+
+            if(res) {
+              console.log("DEU RES", res);
+              return `Parabéns, ${parse.nome}! O seu cadastro foi realizado com sucesso! `
+            } 
 
         const resposta =  NextResponse.json({ res }, { status: 200 })
          console.log("USUÁRIO CADASTRADO COM SUCESSO!", resposta.status);        
