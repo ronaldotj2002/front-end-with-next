@@ -19,6 +19,7 @@ export async function getUsuarioPorEmail(email: string): Promise<Usuario | undef
 }
 
 export async function login(prevState: string | undefined, formData: FormData) {
+    console.log("FORM-DATA", formData);
     try {
         await signIn('credentials', formData);
     } catch (err) {

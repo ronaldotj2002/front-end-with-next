@@ -23,16 +23,20 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
-    }
+      "@/*": [
+        "./*"
+      ]
+    },
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "middleware.js"
-, "app/api/route.js"  ],
+    "middleware.js",
+    "app/api/route.js"
+  ],
   "exclude": [
     "node_modules"
   ]

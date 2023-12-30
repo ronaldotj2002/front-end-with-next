@@ -21,7 +21,7 @@ export const { auth, signIn, signOut } = NextAuth({
     providers: [
         Credentials({
             async authorize(credentials) {
-
+                console.log("FORM-DATA-credentials", credentials);
                 const parsedCredentials = z
                     .object({ email: z.string().email(), senha: z.string().min(5) })
                     .safeParse(credentials);
